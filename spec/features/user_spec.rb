@@ -16,6 +16,8 @@ feature 'User authentication' do
     fill_in 'Password', with: user.password
     fill_in 'Password Confirmation', with: user.password
 
+    click_link 'Signup'
+
     expect(page).to have_content("Thank you for signing up #{user.first_name.capitalize}")
     expect(page).to have_content("You are signed in as #{user.email}")
 
