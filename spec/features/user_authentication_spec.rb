@@ -55,6 +55,25 @@ feature 'User authentication' do
     click_button 'Login'
 
     expect(page).to have_content('Invalid email or password')
+
+  end
+  scenario 'allow logged in user to log out' do
+    user = FactoryGirl.create(:user)
+
+    visit login_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Login'
+
+    expect(page).to have_content("Signed in as #{user.email}")
+
+    expect(page).to have_link('Logout')
+
+    click_link 'Logout'
+
+    expect(page).to have_content("#{user.email} had been logged out")
     expect(page).to_not have_content("Welcome back #{user.first_name.capitalize}")
     expect(page).to_not have_content("Signed in as #{user.email}")
 
