@@ -40,4 +40,23 @@ feature 'User authentication' do
     expect(page).to have_content("Signed in as #{user.email}")
 
   end
+  scenario 'It should not allow login with incorrect password' do
+    user = FactoryGirl.create(:user, password: 'password')
+
+    visit '/'
+
+    expect(page).to have_link('Login')
+
+    click_link 'Login'
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: 'INCORRECT_PASSWORD'
+
+    click_button 'Login'
+
+    expect(page).to have_content('Invalid email or password')
+    expect(page).to_not have_content("Welcome back #{user.first_name.capitalize}")
+    expect(page).to_not have_content("Signed in as #{user.email}")
+
+  end
 end
