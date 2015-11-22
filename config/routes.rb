@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     only: [:new, :create],
     path_names: {new: "signup"}
 
+  get 'login', to: 'sessions#login'
+  post 'login', to: 'sessions#create'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
