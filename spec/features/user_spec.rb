@@ -19,7 +19,7 @@ feature 'User authentication' do
     click_button 'Signup'
 
     expect(page).to have_content("Thank you for signing up #{user.first_name.capitalize}")
-    expect(page).to have_content("You are signed in as #{user.email}")
+    expect(page).to have_content("Signed in as #{user.email}")
 
   end
 end
